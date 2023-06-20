@@ -1,0 +1,148 @@
+﻿@page
+@using PRN231_PE_Trial_WebUI.UIModels;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Company Projects Management System</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login-modal">Login</button>
+</div>
+
+<partial name="_LoginModal" model="new LoginModel()" />
+
+<!-- Display validation errors -->
+@if (ViewData.ModelState.ContainsKey("API Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["API Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+@*Using Ajax to call API to login*@
+@section Scripts {
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
+
+    <script>
+        const login = document.getElementById("Login-Hr-Staff");
+
+
+        login.addEventListener("click", () => {
+            loginHrStaff();
+        });
+
+        // Direct ajax call to API
+        const loginHrStaff = () => {
+            const model = {
+                Email: document.getElementById("Email").value,
+                Password: document.getElementById("Password").value
+            };
+
+            const data = JSON.stringify(model);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "https://localhost:7202/api/Authenticate",
+                data: data,
+                success: function (data) {
+                    if (data && data.status) {
+
+                        // Extract token from response
+                        var jwtToken = data.token.jwtToken;
+                        var refreshToken = data.token.refreshToken;
+
+                        //// Can't set cookie from client side, so we have to use server side to set cookie
+                        //// Set cookies to store tokens
+                        //document.cookie = "jwtToken=" + jwtToken + "; path=/; Secure; HttpOnly";
+                        //document.cookie = "refreshToken=" + refreshToken + "; path=/; Secure; HttpOnly";
+
+                        //// Set expiration time for cookies
+                        //var expirationDate = new Date();
+                        //expirationDate.setMinutes(expirationDate.getMinutes() + 30); // Set expiration to 30 Minutes from now
+                        //document.cookie = "jwtTokenExpires=" + expirationDate.toUTCString() + "; path=/; Secure; HttpOnly";
+                        //document.cookie = "refreshTokenExpires=" + expirationDate.toUTCString() + "; path=/; Secure; HttpOnly";
+
+                        // Redirect to Company Project Management Page
+                        window.location.href = "/CompanyProjectPages/Management";
+
+                        // Ajax to Handler method (failed)
+                        //$.ajax({
+                        //    type: "POST",
+                        //    url: "/Index/Handelers?handler=Login", // Update the URL to your Razor Page path
+                        //    data: {
+                        //        JwtToken: jwtToken,
+                        //        RefreshToken: refreshToken
+                        //    },
+                        //    success: function (data) {
+                        //        // Handle the success response
+                        //        // ...
+                        //        console.log(data);
+                        //    },
+                        //    error: function () {
+                        //        // Handle the error response
+                        //        // ...
+                        //        console.log("Failed");
+                        //    }
+                        //});
+
+
+
+                        //window.location.href = "/Privacy";
+
+                    } else {
+                        alert("Login failed");
+                    }
+                },
+                error: function () {
+                    alert("Failed");
+                }
+            });
+
+
+        };
+
+
+
+
+        //    const model = {
+        //        Email: document.getElementById("Email").value,
+        //        Password: document.getElementById("Password").value
+        //    };
+
+        //    const data = JSON.stringify(model);
+
+            //$.ajax({
+            //    type: "POST",
+            //    contentType: "application/json",
+            //    url: "/Index?handler=Login", // Update the URL to your Razor Page path
+            //    data: data,
+            //    success: function (data) {
+            //        // Handle the success response
+            //        // ...
+            //        console.log(data);
+            //    },
+            //    error: function () {
+            //        // Handle the error response
+            //        // ...
+            //        console.log("Failed");
+            //    }
+            //});
+        //});
+
+        //loginButton.addEventListener("click", function () {
+        //    loginForm.submit(); // Trigger the form submission
+
+
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿@page
+@model PRN231_PE_Trial_WebUI.Pages.CompanyProjectPages.CreateModel
+@{
+    ViewData["Title"] = "Create New Company Project";
+}
+
+<h1>Add New Company Project Management</h1>
+
+<!-- Display Token errors -->
+@if (ViewData.ModelState.ContainsKey("Token_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Token_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Display Odata errors -->
+@if (ViewData.ModelState.ContainsKey("Odata_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Odata_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Create new Project form -->
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-page-handler="Create">
+            <div class="form-group">
+                <label asp-for="CompanyProject.ProjectName" class="control-label"></label>
+                <input asp-for="CompanyProject.ProjectName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CompanyProject.ProjectDescription" class="control-label"></label>
+                <input asp-for="CompanyProject.ProjectDescription" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CompanyProject.EstimatedStartDate" class="control-label"></label>
+                <input asp-for="CompanyProject.EstimatedStartDate" class="form-control" type="date" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CompanyProject.EstimatedEndDate" class="control-label"></label>
+                <input asp-for="CompanyProject.EstimatedEndDate" class="form-control" type="date" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Employees Participate In Project</label>
+                <select id="selectedEmployees" asp-for="SelectedEmployeeIDs" asp-items="Model.SelectableEmployees" class="form-control">
+                </select>
+            </div>
+
+            <br />
+
+            <div id="extraFieldsContainer" class="row"></div>
+
+            <br />
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Add New Project</button>
+            </div>
+
+        </form>
+        <div>
+            <a asp-page="Management">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            // Add event listener to detect changes in the multi-select element
+            $("#selectedEmployees").change(function () {
+                // Clear previously generated extra fields
+                $("#extraFieldsContainer").empty();
+
+                // Get the selected options
+                var selectedOptions = $(this).find("option:selected");
+
+                // Generate extra fields for each selected option
+                if (selectedOptions) {
+                    selectedOptions.each(function (index) {
+                        var optionText = $(this).text();
+
+                        var extraFieldsContainer = $('<div class="row"></div>');
+
+                        var startDateField = $('<div class="form-group col">' +
+                            '<label class="control-label">Start Date for ' + optionText + '</label>' +
+                            '<input name="SelectedEmployeesStartDates[' + index + ']" class="form-control" type="date" />' +
+                            '</div>');
+
+                        var endDateField = $('<div class="form-group col">' +
+                            '<label class="control-label">End Date for ' + optionText + '</label>' +
+                            '<input name="SelectedEmployeesEndDates[' + index + ']" class="form-control" type="date" />' +
+                            '</div>');
+
+                        extraFieldsContainer.append(startDateField);
+                        extraFieldsContainer.append(endDateField);
+
+                        $("#extraFieldsContainer").append(extraFieldsContainer);
+                    });
+                }
+            });
+        });
+    </script>
+}

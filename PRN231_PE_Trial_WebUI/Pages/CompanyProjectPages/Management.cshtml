@@ -1,0 +1,191 @@
+﻿@page
+@model PRN231_PE_Trial_WebUI.Pages.CompanyProjectPages.ManagementModel
+@{
+    ViewData["Title"] = "Management";
+}
+
+<h1>Company Project Management</h1>
+
+<!-- Display Token errors -->
+@if (ViewData.ModelState.ContainsKey("Token_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Token_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Display Odata errors -->
+@if (ViewData.ModelState.ContainsKey("Odata_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Odata_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+@*Search by Project Name*@
+<form method="post" asp-page-handler="SearchProjectName" class="row">
+    <div class="form-group col-md-8">
+        <label asp-for="SearchProjectName" class="control-label"></label>
+        <input asp-for="SearchProjectName" class="form-control" />
+    </div>
+    <div class="form-group col-md-4 d-flex align-items-end">
+        <button type="submit" value="Search" class="btn btn-primary">Search Project Name</button>
+    </div>
+</form>
+
+@*Search Project Estimated Start Date*@
+<form method="post" asp-page-handler="SearchEstStartDate" class="row">
+    <div class="form-group col-md-8">
+        <label asp-for="SearchEstStartDate" class="control-label"></label>
+        <input asp-for="SearchEstStartDate" class="form-control" type="date" />
+    </div>
+    <div class="form-group col-md-4 d-flex align-items-end">
+        <button type="submit" value="Search" class="btn btn-primary">Search Project Estimated Start Date</button>
+    </div>
+</form>
+
+
+<br />
+
+@*Search All Project*@
+<div class="d-flex justify-content-between">
+    <form method="get">
+        <div class="form-group">
+            <button type="submit" value="Search" class="btn btn-primary">Search All Project</button>
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Page("Create")'">Add New Project</button>
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyProjects[0].CompanyProjectID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyProjects[0].ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyProjects[0].ProjectDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyProjects[0].EstimatedStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyProjects[0].EstimatedEndDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <!-- Display Company Projects -->
+    @if (Model.CompanyProjects != null)
+    {
+        <tbody>
+            @foreach (var item in Model.CompanyProjects)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyProjectID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimatedStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstimatedEndDate)
+                    </td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@item.CompanyProjectID">Edit</a> |
+                        <a asp-page="Details" asp-route-id="@item.CompanyProjectID">Details</a> |
+                        <a asp-page="Delete" asp-route-id="@item.CompanyProjectID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>
+
+@*<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="?pageNumber=@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>*@
+
+
+@*Search All Pagination NavBlock*@
+@if (Model.PaginationStatus == ManagementModel.PaginationNavBlockStatus.SearchAll)
+{
+    <nav>
+        <form method="get">
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <button class="page-link" type="submit" name="pageNumber" value="@i">@i</button>
+                    </li>
+                }
+            </ul>
+        </form>
+    </nav>
+}
+
+@*Search by Project Name NavBlock*@
+@if (Model.PaginationStatus == ManagementModel.PaginationNavBlockStatus.SearchProjectName)
+{
+    <nav>
+        <form method="post" asp-page-handler="SearchProjectName">
+            <input type="hidden" asp-for="SearchProjectName" value="@Model.SearchProjectName" />
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <button class="page-link" type="submit" name="pageNumber" value="@i">@i</button>
+                    </li>
+                }
+            </ul>
+        </form>
+    </nav>
+}
+
+@*Search by Project Estimate Start Date NavBlock*@
+@if(Model.PaginationStatus == ManagementModel.PaginationNavBlockStatus.SearchEstStartDate)
+{
+    <nav>
+        <form method="post" asp-page-handler="SearchEstStartDate">
+            <input type="hidden" asp-for="SearchEstStartDate" value="@Model.SearchEstStartDate" />
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                        <button class="page-link" type="submit" name="pageNumber" value="@i">@i</button>
+                    </li>
+                }
+            </ul>
+        </form>
+    </nav>
+}

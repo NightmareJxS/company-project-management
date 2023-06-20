@@ -1,0 +1,39 @@
+﻿@page
+@model PRN231_PE_Trial_WebUI.Pages.LoginPageModel
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4">Company Projects Management System</h1>
+
+    <div class="container" style="width:400px;">
+        <form asp-page-handler="Login" method="post" class="login-form">
+            <div class="form-group">
+                <label asp-for="loginModel.Email" class="form-label">Email</label>
+                <input asp-for="loginModel.Email" class="form-control" id="Email" name="Email" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="loginModel.Password" class="form-label">Password</label>
+                <input asp-for="loginModel.Password" class="form-control" id="Password" name="Password" type="password" />
+            </div>
+            <br />
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+
+        <!-- Display validation errors -->
+        @if (ViewData.ModelState.ContainsKey("API_Error"))
+        {
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach (var error in ViewData.ModelState["API_Error"].Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,124 @@
+﻿@page
+@model PRN231_PE_Trial_WebUI.Pages.CompanyProjectPages.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Company Project Details</h1>
+
+<!-- Display Token errors -->
+@if (ViewData.ModelState.ContainsKey("Token_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Token_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Display Odata errors -->
+@if (ViewData.ModelState.ContainsKey("Odata_Error"))
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState["Odata_Error"].Errors)
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+<!-- Display Project Details -->
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyProject.CompanyProjectID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyProject.CompanyProjectID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyProject.ProjectName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyProject.ProjectName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyProject.ProjectDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyProject.ProjectDescription)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyProject.EstimatedStartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyProject.EstimatedStartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CompanyProject.EstimatedEndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CompanyProject.EstimatedEndDate)
+        </dd>
+
+        <dd class="col-sm-12" style="height: 10px"></dd>
+
+        <dt class="col-sm-12">
+            Project Employees List
+        </dt>
+        <dd class="col-sm-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyProject.ParticipatingProjects[0].Employee.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyProject.ParticipatingProjects[0].Employee.Department.DepartmentName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyProject.ParticipatingProjects[0].StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CompanyProject.ParticipatingProjects[0].EndDate)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CompanyProject.ParticipatingProjects)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Employee.Department.DepartmentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+
+
+    </dl>
+</div>
+
+<div>
+    <a asp-page="Edit" asp-route-id="@Model.CompanyProject.CompanyProjectID">Edit</a> |
+    <a asp-page="Management">Back to List</a>
+</div>
