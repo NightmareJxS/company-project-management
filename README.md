@@ -1,4 +1,5 @@
 
+
 # Welcome to Company Project Management Repository
 ### This is the first Full Stack Web App using C# I make!
 
@@ -31,7 +32,13 @@
 3. Go to the **Package Manager Console** and set Default Project as **PRN231_PE_Trial_API** (or **DAL** if the first doesn't work for step 4)
 4. Run **Update-Database** so the Entity-Framework can Apply/Create the Migration down to your Database
 5. Go back and reconfigure Start-up to run multiple projects: **PRN231_PE_Trial_API** and **PRN231_PE_Trial_WebUI**
-6. Have fun and Good luck!
+6. Create new Project. Have fun and Good luck!
+
+### Note: the pagination for the Management page is set to 1
+If you want to change, go to **Management.cshtml.cs** and change the **PageSize** variable to what ever you like
+```c#
+  public int PageSize { get; set; } = 1; // Change this value
+```
 
 ## Found an error?
 ### Create an issue and describe your problem (Include pictures or stack traces if possible)
