@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(CompanyXDbContext))]
-    [Migration("20230609182307_SeedData")]
-    partial class SeedData
+    [Migration("20230620181131_InitMigration")]
+    partial class InitMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,102 +145,102 @@ namespace DAL.Migrations
                         new
                         {
                             EmployeeID = 1,
-                            Address = "Address 1",
+                            Address = "123 Main St, City",
                             DepartmentID = 1,
-                            FullName = "Employee 1",
-                            Skills = "Programming",
+                            FullName = "John Smith",
+                            Skills = "Java, Python, SQL",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "1234567890"
                         },
                         new
                         {
                             EmployeeID = 2,
-                            Address = "Address 2",
+                            Address = "456 Elm St, City",
                             DepartmentID = 1,
-                            FullName = "Employee 2",
-                            Skills = "Programming",
+                            FullName = "Emily Johnson",
+                            Skills = "C#, JavaScript, HTML",
                             Status = 1,
-                            Telephone = "0123456789"
+                            Telephone = "9876543210"
                         },
                         new
                         {
                             EmployeeID = 3,
-                            Address = "Address 3",
+                            Address = "789 Oak St, City",
                             DepartmentID = 1,
-                            FullName = "Employee 3",
-                            Skills = "Programming",
+                            FullName = "Michael Brown",
+                            Skills = "PHP, MySQL, Laravel",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "5555555555"
                         },
                         new
                         {
                             EmployeeID = 4,
-                            Address = "Address 4",
+                            Address = "321 Maple St, City",
                             DepartmentID = 2,
-                            FullName = "Employee 4",
-                            Skills = "Marketing",
+                            FullName = "Jessica Davis",
+                            Skills = "Marketing Strategy, Social Media",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "1111111111"
                         },
                         new
                         {
                             EmployeeID = 5,
-                            Address = "Address 5",
+                            Address = "654 Pine St, City",
                             DepartmentID = 2,
-                            FullName = "Employee 5",
-                            Skills = "Marketing",
+                            FullName = "David Wilson",
+                            Skills = "Market Research, Advertising",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "9999999999"
                         },
                         new
                         {
                             EmployeeID = 6,
-                            Address = "Address 6",
+                            Address = "987 Cedar St, City",
                             DepartmentID = 3,
-                            FullName = "Employee 6",
-                            Skills = "Sales",
+                            FullName = "Jennifer Thompson",
+                            Skills = "Salesforce, Customer Relationship Management",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "7777777777"
                         },
                         new
                         {
                             EmployeeID = 7,
-                            Address = "Address 7",
+                            Address = "111 Walnut St, City",
                             DepartmentID = 3,
-                            FullName = "Employee 7",
-                            Skills = "Sales",
+                            FullName = "Christopher Martinez",
+                            Skills = "Negotiation, Sales Strategies",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "2222222222"
                         },
                         new
                         {
                             EmployeeID = 8,
-                            Address = "Address 8",
+                            Address = "555 Cherry St, City",
                             DepartmentID = 4,
-                            FullName = "Employee 8",
-                            Skills = "Finance",
+                            FullName = "Elizabeth Turner",
+                            Skills = "Accounting, Financial Analysis",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "3333333333"
                         },
                         new
                         {
                             EmployeeID = 9,
-                            Address = "Address 9",
+                            Address = "777 Olive St, City",
                             DepartmentID = 4,
-                            FullName = "Employee 9",
-                            Skills = "Finance",
+                            FullName = "Matthew Harris",
+                            Skills = "Budgeting, Tax Planning",
                             Status = 1,
-                            Telephone = "0123456789"
+                            Telephone = "4444444444"
                         },
                         new
                         {
                             EmployeeID = 10,
-                            Address = "Address 10",
+                            Address = "333 Pine St, City",
                             DepartmentID = 5,
-                            FullName = "Employee 10",
-                            Skills = "Consulting",
+                            FullName = "Sophia Clark",
+                            Skills = "Business Consulting, Project Management",
                             Status = 0,
-                            Telephone = "0123456789"
+                            Telephone = "6666666666"
                         });
                 });
 
@@ -270,42 +270,42 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Email = "a@a.a",
-                            BirthDate = new DateTime(1999, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Testing Admin",
-                            Password = "123",
+                            Email = "admin@example.com",
+                            BirthDate = new DateTime(1985, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "John Doe",
+                            Password = "admin@123",
                             PropjectRole = 0
                         },
                         new
                         {
-                            Email = "b@b.b",
-                            BirthDate = new DateTime(1999, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Testing Admin 2",
-                            Password = "456",
-                            PropjectRole = 0
-                        },
-                        new
-                        {
-                            Email = "c@c.c",
-                            BirthDate = new DateTime(1999, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Testing ProjectManager 1",
-                            Password = "123",
+                            Email = "pm1@example.com",
+                            BirthDate = new DateTime(1990, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "Jane Smith",
+                            Password = "pm@456",
                             PropjectRole = 1
                         },
                         new
                         {
-                            Email = "d@d.d",
-                            BirthDate = new DateTime(1999, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Testing ProjectManager 2",
-                            Password = "456",
+                            Email = "pm2@example.com",
+                            BirthDate = new DateTime(1988, 3, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "Michael Johnson",
+                            Password = "pm@789",
                             PropjectRole = 1
                         },
                         new
                         {
-                            Email = "e@e.e",
-                            BirthDate = new DateTime(1999, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "Testing HRStaff 1",
-                            Password = "123",
+                            Email = "hr1@example.com",
+                            BirthDate = new DateTime(1993, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "David Johnson",
+                            Password = "hr@789",
+                            PropjectRole = 2
+                        },
+                        new
+                        {
+                            Email = "hr2@example.com",
+                            BirthDate = new DateTime(1992, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "Sarah Williams",
+                            Password = "hr@987",
                             PropjectRole = 2
                         });
                 });
